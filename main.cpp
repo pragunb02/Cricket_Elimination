@@ -7,17 +7,9 @@
 #include <stack>
 #include <queue>
 #include <algorithm>
-
 using namespace std;
+int counter = 0;
 
-/**
- * Implementation of algorithm to take input from the given text file
- *
- * The input is given in a text file, where the first line
- * is the number of teams in division and then n lines containing
- * team names, wins, losses, remaining games and remaining games amongst themselves.
- * @param filename
- */
 vector<string> txtToString(string filename)
 {
     vector<string> v;
@@ -44,10 +36,6 @@ vector<string> txtToString(string filename)
     return v;
 }
 
-/**
- * Converts given string into the given number by exploiting ASCII code
- * @param numberAsString
- */
 int stringToNumber(string s)
 {
     int n = 0;
@@ -246,7 +234,7 @@ public:
     void maxFlowFordFulkerson(divison d)
     {
         vector<int> path;
-        vector<vector<int>> resNet(this->n, vector<int>(this->n, 0));
+        vector<vector<int>> resNet(this->n, vector<int>(this->n, 0)); // res Ntwork
         int maxFlow = 0, saturation = 0;
         resNet = this->cap;
         for (int j = 0; j < this->n; j++)
@@ -273,7 +261,14 @@ public:
             path = this->bfs(resNet);
         }
         if (saturation == maxFlow)
+        {
+            counter++;
+            if (counter == d.getNTeams())
+            {
+                cout << "No team is eliminated." << endl;
+            }
             return;
+        }
         else
         {
             vector<bool> visited(this->n, false);
@@ -328,6 +323,7 @@ void eliminate(divison d, int n, int max, int min)
                  << d.getTeamNames()[max] << " has won a total of " << d.getWins()[max] << " games.\nThey play each other 0 times.\nSo on average, each of the teams in this group wins " << d.getWins()[max] << "/1 = " << d.getWins()[max] << " games.\n\n";
         else
         {
+            // cout<<"ff"
             flowNetwork fn(d, i);
             fn.maxFlowFordFulkerson(d);
         }
@@ -339,6 +335,7 @@ int main()
     string filename;
     cout << "Enter File Name:\n";
     cin >> filename;
+    cout << endl;
     vector<string> input = txtToString(filename);
     try
     {
