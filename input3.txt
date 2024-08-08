@@ -1,0 +1,6 @@
+5
+India        75 59 28   0 3 8 7 3
+Bangladesh   71 63 28   3 0 2 7 4
+Pakistan     69 66 27   8 2 0 0 0
+England      63 72 27   7 7 0 0 0
+New_Zealand  49 86 27   3 4 0 0 0

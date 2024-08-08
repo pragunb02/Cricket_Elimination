@@ -1,6 +1,6 @@
 5
 NY            75 59 19  0 5 7 4 3
 Baltimore     71 63 15  5 0 2 4 4
-Boston        69 65 15  7 2 0 4 0
-Toronto       63 71 8  4 4 4 0 0
+Boston        69 65 13  7 2 0 4 0
+Toronto       63 71 12  4 4 4 0 0
 Detroit       47  0 7  3 4 0 0 0

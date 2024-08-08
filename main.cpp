@@ -190,7 +190,7 @@ public:
 				skip = 1;
 			else
 				skip = 0;
-			cout << teamNames[i] << " " << endl;
+			// cout << teamNames[i] << " " << endl;
 			fn[numGames + i + 1 - skip][totalNodes - 1] = d.getWins()[curTeam] + d.getLeft()[curTeam] - d.getWins()[i];
 			am[numGames + i + 1 - skip][totalNodes - 1] = true;
 			e[numGames + i + 1 - skip].push_back(totalNodes - 1);
@@ -343,8 +343,10 @@ void eliminate(divison d, int n, int max, int min)
 	{
 		cout << "I" << i << endl;
 		if (d.getWins()[i] + d.getLeft()[i] < d.getWins()[max])
+		{
 			cout << d.getTeamNames()[i] << " is eliminated.\nThey can win at most " << d.getWins()[i] << " + " << d.getLeft()[i] << " = " << d.getWins()[i] + d.getLeft()[i] << " games.\n"
 				 << d.getTeamNames()[max] << " has won a total of " << d.getWins()[max] << " games.\nThey play each other 0 times.\nSo on average, each of the teams in this group wins " << d.getWins()[max] << "/1 = " << d.getWins()[max] << " games.\n\n";
+		}
 		else
 		{
 			cout << "ff" << " " << ix << endl;
