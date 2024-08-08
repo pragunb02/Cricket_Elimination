@@ -10,7 +10,8 @@
 using namespace std;
 int counter = 0;
 
-vector<string> txtToString(string filename) {
+vector<string> txtToString(string filename)
+{
 	vector<string> v;
 	fstream file;
 	try
@@ -230,7 +231,8 @@ public:
 		return path;
 	}
 
-	void maxFlowFordFulkerson(divison d){
+	void maxFlowFordFulkerson(divison d)
+	{
 		vector<int> path;
 		vector<vector<int>> resNet(this->n, vector<int>(this->n, 0)); // res Ntwork
 		int maxFlow = 0, saturation = 0;
@@ -238,14 +240,17 @@ public:
 		for (int j = 0; j < this->n; j++)
 			saturation += this->cap[0][j];
 		path = this->bfs(resNet);
-		while (path[this->n - 1] != INT_MIN){
+		while (path[this->n - 1] != INT_MIN)
+		{
 			int bottleneck = INT_MAX;
 			for (int i = this->n - 1; i > 0; i = path[i])
 				bottleneck = bottleneck < resNet[path[i]][i] ? bottleneck : resNet[path[i]][i];
-			for (int i = this->n - 1; i > 0; i = path[i]){
+			for (int i = this->n - 1; i > 0; i = path[i])
+			{
 				resNet[path[i]][i] -= bottleneck;
 				resNet[i][path[i]] += bottleneck;
-				if (find(this->edges[i].begin(), this->edges[i].end(), path[i]) == this->edges[i].end()){
+				if (find(this->edges[i].begin(), this->edges[i].end(), path[i]) == this->edges[i].end())
+				{
 					this->edges[i].push_back(path[i]);
 					sort(this->edges[i].begin(), this->edges[i].end());
 				}
@@ -255,9 +260,11 @@ public:
 			maxFlow += bottleneck;
 			path = this->bfs(resNet);
 		}
-		if (saturation == maxFlow){
+		if (saturation == maxFlow)
+		{
 			counter++;
-			if (counter == d.getNTeams()){
+			if (counter == d.getNTeams())
+			{
 				cout << "No team is eliminated." << endl;
 			}
 			return;
@@ -267,7 +274,8 @@ public:
 			vector<bool> visited(this->n, false);
 			stack<int> traverse;
 			traverse.push(0);
-			while (!traverse.empty()){
+			while (!traverse.empty())
+			{
 				int i = traverse.top();
 				traverse.pop();
 				if (!visited[i])
@@ -286,7 +294,8 @@ public:
 				if (visited[i] && !visited[this->n - 1] && this->adjMat[i][this->n - 1])
 					positions.push_back(find(tn.begin(), tn.end(), this->nodes[i]) - tn.begin());
 			cout << tn[positions[0]];
-			for (int i = 0; i < positions.size(); i++){
+			for (int i = 0; i < positions.size(); i++)
+			{
 				wins += d.getWins()[positions[i]];
 				if (i != 0 && i != positions.size() - 1)
 					cout << ", " << tn[positions[i]];
@@ -294,7 +303,8 @@ public:
 					cout << " and " << tn[positions[i]];
 			}
 			sort(positions.begin(), positions.end());
-			for (int i = 0; i < positions.size() - 1; i++){
+			for (int i = 0; i < positions.size() - 1; i++)
+			{
 				for (int j = i + 1; j < positions.size(); j++)
 					remain += d.getGames()[positions[i]][positions[j]];
 			}
@@ -302,37 +312,47 @@ public:
 		}
 	}
 };
-
-void eliminate(divison d, int n, int max, int min){
+int ix = 0;
+void eliminate(divison d, int n, int max, int min)
+{
 	vector<int> positions;
-	for (int i = 0; i < n; i++){
+	for (int i = 0; i < n; i++)
+	{
+		cout << "I" << i << endl;
 		if (d.getWins()[i] + d.getLeft()[i] < d.getWins()[max])
 			cout << d.getTeamNames()[i] << " is eliminated.\nThey can win at most " << d.getWins()[i] << " + " << d.getLeft()[i] << " = " << d.getWins()[i] + d.getLeft()[i] << " games.\n"
-			     << d.getTeamNames()[max] << " has won a total of " << d.getWins()[max] << " games.\nThey play each other 0 times.\nSo on average, each of the teams in this group wins " << d.getWins()[max] << "/1 = " << d.getWins()[max] << " games.\n\n";
-		else{
-			// cout<<"ff"
+				 << d.getTeamNames()[max] << " has won a total of " << d.getWins()[max] << " games.\nThey play each other 0 times.\nSo on average, each of the teams in this group wins " << d.getWins()[max] << "/1 = " << d.getWins()[max] << " games.\n\n";
+		else
+		{
+			cout << "ff" << " " << ix << endl;
+			ix++;
 			flowNetwork fn(d, i);
 			fn.maxFlowFordFulkerson(d);
 		}
 	}
 }
 
-int main(){
+int main()
+{
 	string filename;
 	cout << "Enter File Name:\n";
 	cin >> filename;
 	cout << endl;
 	vector<string> input = txtToString(filename);
-	try{
+	try
+	{
 		if (input.size() == 0)
-			throw - 1;
+			throw -1;
 		else if (input.size() == 1)
 			throw 0;
-		else{''
+		else
+		{
 			divison div(input);
 			int maxpos = 0, minpos = 0, max = div.getWins()[0], min = div.getWins()[0];
-			for (int i = 1; i < div.getNTeams(); i++){
-				if (div.getWins()[i] > max){
+			for (int i = 1; i < div.getNTeams(); i++)
+			{
+				if (div.getWins()[i] > max)
+				{
 					max = div.getWins()[i];
 					maxpos = i;
 				}
@@ -345,7 +365,8 @@ int main(){
 			eliminate(div, div.getNTeams(), maxpos, minpos);
 		}
 	}
-	catch (int x){
+	catch (int x)
+	{
 		if (x == -1)
 			cout << __FILE__ << ": error: string array from input file was not created; check filename or contents of file again\n";
 		else if (x == 0)
