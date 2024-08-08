@@ -369,5 +369,6 @@ int main()
             cout << __FILE__ << ": error: string array from input file was not created; check filename or contents of file again\n";
         else if (x == 0)
             cout << __FILE__ << ": error: the input text file has only one line; atleast two lines of input needed\n";
+            // testing comment
     }
 }
