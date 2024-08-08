@@ -1,4 +1,4 @@
- # Cricket_Elimination_Project
+ # SixthSense Project
 
 - Developed a model to solve a complex problem using graph theory and optimization algorithms.
 
