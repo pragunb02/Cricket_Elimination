@@ -190,6 +190,7 @@ public:
 				skip = 1;
 			else
 				skip = 0;
+			cout << teamNames[i] << " " << endl;
 			fn[numGames + i + 1 - skip][totalNodes - 1] = d.getWins()[curTeam] + d.getLeft()[curTeam] - d.getWins()[i];
 			am[numGames + i + 1 - skip][totalNodes - 1] = true;
 			e[numGames + i + 1 - skip].push_back(totalNodes - 1);
@@ -237,8 +238,26 @@ public:
 		vector<vector<int>> resNet(this->n, vector<int>(this->n, 0)); // res Ntwork
 		int maxFlow = 0, saturation = 0;
 		resNet = this->cap;
+		// if (this->teamNames[leftTeam] == "Detroit")
+		// {
+		// 	cout << resNet.size() << " " << resNet[0].size() << endl;
+		// 	cout << (this->cap).size() << " " << (this->cap)[0].size() << endl;
+		// 	for (auto x : resNet)
+		// 	{
+		// 		for (auto y : x)
+		// 		{
+		// 			cout << y << " ";
+		// 		}
+		// 		cout << endl;
+		// 	}
+		// }
+
 		for (int j = 0; j < this->n; j++)
+		{
+			// cout << this->cap[0][j] << " ";
 			saturation += this->cap[0][j];
+		}
+		// cout << endl;
 		path = this->bfs(resNet);
 		while (path[this->n - 1] != INT_MIN)
 		{
@@ -259,7 +278,10 @@ public:
 			}
 			maxFlow += bottleneck;
 			path = this->bfs(resNet);
+			// cout << maxFlow << " " << bottleneck << endl;
 		}
+		// cout << this->teamNames[leftTeam] << endl;
+		// cout << saturation << " " << maxFlow << endl;
 		if (saturation == maxFlow)
 		{
 			counter++;
@@ -286,6 +308,7 @@ public:
 							traverse.push(edges[i][j]);
 				}
 			}
+			// cout << "hi" << endl;
 			cout << this->teamNames[leftTeam] << " is eliminated.\nThey can win at most " << d.getWins()[leftTeam] << " + " << d.getLeft()[leftTeam] << " = " << d.getWins()[leftTeam] + d.getLeft()[leftTeam] << " games.\n";
 			vector<int> positions;
 			vector<string> tn = d.getTeamNames();
