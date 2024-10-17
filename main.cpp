@@ -7,6 +7,7 @@
 #include <stack>
 #include <queue>
 #include <algorithm>
+#include <bits/stdc++.h>
 using namespace std;
 int counter = 0;
 
@@ -344,12 +345,14 @@ void eliminate(divison d, int n, int max, int min)
 		cout << "I" << i << endl;
 		if (d.getWins()[i] + d.getLeft()[i] < d.getWins()[max])
 		{
+			cout<<"TRIVIAL"<<endl;
 			cout << d.getTeamNames()[i] << " is eliminated.\nThey can win at most " << d.getWins()[i] << " + " << d.getLeft()[i] << " = " << d.getWins()[i] + d.getLeft()[i] << " games.\n"
 				 << d.getTeamNames()[max] << " has won a total of " << d.getWins()[max] << " games.\nThey play each other 0 times.\nSo on average, each of the teams in this group wins " << d.getWins()[max] << "/1 = " << d.getWins()[max] << " games.\n\n";
 		}
 		else
 		{
-			cout << "ff" << " " << ix << endl;
+			cout<<"NON TRIVIAL"<<endl;
+			// cout << "ff" << " " << ix << endl;
 			ix++;
 			flowNetwork fn(d, i);
 			fn.maxFlowFordFulkerson(d);
